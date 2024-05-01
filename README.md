@@ -1,1 +1,1 @@
-Simple library to read SPL0-00 sensor with ESP32 boards
+Simple library to read SPL06-001sensor with ESP32 boards
