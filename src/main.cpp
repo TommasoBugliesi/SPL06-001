@@ -2,24 +2,26 @@
 #include <Wire.h>
 #include <SPL06-001.h>
 
-SPL06_001 spl06_001(0x77, &Wire); // ADDR: 0 => 0x77, ADDR: 1 => 0x76
+#define SDA_PIN 05 // Example alternative pin for SDA
+#define SCL_PIN 06 // Example alternative pin for SCL
+
+SPL06_001 spl06_001(0x76, &Wire); // ADDR: 0 => 0x77, ADDR: 1 => 0x76
 
 void setup() {
   Serial.begin(115200);
 
-  Wire.begin();
+  Wire.begin(SDA_PIN, SCL_PIN);
+  // while (!spl06_001.begin()) {
+  //   Serial.println("SPL06-001 not found !");
+  //   delay(1000);
+  // }
+}
+
+void loop() {
   while (!spl06_001.begin()) {
     Serial.println("SPL06-001 not found !");
     delay(1000);
   }
-}
-
-void loop() {
-  // Serial.print("Pressure: ");
-  // Serial.print(spl06_001.pressure() * 0.01, 1); // 1 Pa = 0.01 hPa so Pa * 0.01 = hPa
-  // Serial.print(" hPa\tTemperature: ");
-  // Serial.print(spl06_001.temperature(), 1);
-  // Serial.print(" *C");
-  // Serial.println();
+  Serial.println("SPL06-001 connected!");
   delay(1000);
 }
